@@ -38,8 +38,8 @@ class EntityGetter {
   }
 }
 
-export default function (filterFunction) {
-  return function (state) {
+export default (filterFunction) => {
+  return (state) => {
     return new EntityGetter(filterFunction, state);
   };
-}
+};
