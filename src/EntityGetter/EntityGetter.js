@@ -1,16 +1,17 @@
-import { clone, each, filter, first, get, values } from 'lodash';
+import { clone, each, filter, first, get as _get, values } from 'lodash';
 
-export default class EntityGetter {
-  constructor (filterFunc) {
-    this.filterFunc = filterFunc;
+class EntityGetter {
+  constructor (filterFunc, state) {
     this.entities = [];
+    this.filterFunc = filterFunc;
+    this.state = state;
   }
 
-  getFrom = (state, entityName) => {
-    const { _filterEntities, filterFunc } = this;
+  get = (entityName) => {
+    const { _filterEntities, filterFunc, state } = this;
     const pathToEntities = filterFunc(entityName);
 
-    this.entities = get(state, pathToEntities);
+    this.entities = _get(state, pathToEntities);
 
     return {
       entities: values(this.entities),
@@ -35,4 +36,10 @@ export default class EntityGetter {
 
     return filteredEntities;
   }
+}
+
+export default function (filterFunction) {
+  return function (state) {
+    return new EntityGetter(filterFunction, state);
+  };
 }

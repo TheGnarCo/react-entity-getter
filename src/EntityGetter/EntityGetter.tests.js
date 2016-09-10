@@ -1,5 +1,5 @@
 import expect from 'expect';
-import EntityGetter from './index';
+import entityGetter from './index';
 
 describe('EntityGetter', () => {
   const job1 = {
@@ -37,8 +37,8 @@ describe('EntityGetter', () => {
     };
 
     const entitySelector = entityName => `entities.${entityName}.data.entityToId`;
-    const getter = new EntityGetter(entitySelector);
-    const entities = getter.getFrom(state, 'jobs');
+    const getter = entityGetter(entitySelector)(state);
+    const entities = getter.get('jobs');
 
     describe('#entities', () => {
       it('returns an array of entities in state', () => {
@@ -96,8 +96,8 @@ describe('EntityGetter', () => {
     };
 
     const entitySelector = entityName => `api.data.${entityName}.data`;
-    const getter = new EntityGetter(entitySelector);
-    const entities = getter.getFrom(state, 'jobs');
+    const getter = entityGetter(entitySelector)(state);
+    const entities = getter.get('jobs');
 
     describe('#entities', () => {
       it('returns an array of entities in state', () => {

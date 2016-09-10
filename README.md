@@ -26,15 +26,13 @@ const pathToEntity = (entityName) => {
 
 ```js
 // ./utilities/entityGetter.js
-import EntityGetter from 'react-entity-getter';
+import entityGetter from 'react-entity-getter';
 
 const pathToEntity = (entityName) => {
   return `api.data.${entityName}.data`;
 };
 
-const entityGetter = new EntityGetter(pathToEntity);
-
-export default entityGetter;
+export default entityGetter(pathToEntity);
 ```
 
 5) In your connected React components, import your `entityGetter` utility.
@@ -60,7 +58,7 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const user = entityGetter.getFrom(state, 'users').findBy({ isCurrentUser: true });
+  const user = entityGetter(state).get('users').findBy({ isCurrentUser: true });
 
   return { user };
 };
@@ -77,7 +75,11 @@ export default connect(mapStateToProps)(HomePage);
 Example:
 
 ```js
-const user = entityGetter.getFrom(state, 'users').findBy({ isCurrentUser: true }); // returns a single User entity
+const user = stateEntityGetter(state).get('users').findBy({ isCurrentUser: true }); // returns a single User entity
+const post = stateEntityGetter(state).get('posts').findBy({
+  title: 'My post',
+  published: true,
+}); // returns a single Post entity
 ```
 
 ### where
@@ -87,6 +89,11 @@ const user = entityGetter.getFrom(state, 'users').findBy({ isCurrentUser: true }
 Example:
 
 ```js
-const post = entityGetter.getFrom(state, 'posts').findBy({ title: 'My post' });
-const comments = entityGetter.getFrom(state, 'comments').where({ post_id: post.id }); // returns an array of comments related to the post
+const entities = stateEntityGetter(state);
+const user = entities.get('users').findBy({ isCurrentUser: true });
+const post = entities.get('posts').findBy({ title: 'My post' });
+const comments = entities.get('comments').where({
+  post_id: post.id,
+  user_id: user.id,
+}); // returns an array of comments related to the post and user
 ```
