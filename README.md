@@ -1,5 +1,8 @@
 # React Entity Getter
 
+[![npm version](https://badge.fury.io/js/react-entity-getter.svg)](https://badge.fury.io/js/react-entity-getter)
+[![CircleCI](https://circleci.com/gh/TheGnarCo/react-entity-getter.svg?style=svg)](https://circleci.com/gh/TheGnarCo/react-entity-getter)
+
 The React Entity Getter is a helper class with functions that assist in retrieving redux entitites from state.
 
 This is particularly helpful for connected React components in the `mapStateToProps` function.
