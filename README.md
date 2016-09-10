@@ -66,6 +66,18 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(HomePage);
 ```
 
+## Attributes
+
+### entities
+
+* Returns all entities of the `entityName` in redux state.
+
+Example:
+
+```js
+const users = stateEntityGetter(state).get('users').entities;
+```
+
 ## Functions
 
 ### findBy
