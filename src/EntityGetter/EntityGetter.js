@@ -1,4 +1,6 @@
-import { clone, each, filter, first, get as _get, values } from 'lodash';
+import { get as _get, values } from 'lodash';
+
+import EntitiesWrapper from '../EntitiesWrapper';
 
 class EntityGetter {
   constructor (filterFunc, state) {
@@ -8,33 +10,13 @@ class EntityGetter {
   }
 
   get = (entityName) => {
-    const { _filterEntities, filterFunc, state } = this;
+    const { filterFunc, state } = this;
     const pathToEntities = filterFunc(entityName);
 
-    this.entities = _get(state, pathToEntities);
+    const stateEntities = _get(state, pathToEntities);
+    this.entities = values(stateEntities);
 
-    return {
-      entities: values(this.entities),
-      findBy: (options = {}) => {
-        return first(_filterEntities(options));
-      },
-      where: (options = {}) => {
-        return _filterEntities(options);
-      },
-    };
-  }
-
-  _filterEntities = (options) => {
-    let filteredEntities = clone(this.entities);
-
-    each(options, (attributeValue, attributeName) => {
-      filteredEntities = filter(filteredEntities, (entity) => {
-        const attribute = entity[attributeName];
-        return String(attribute) === String(attributeValue);
-      });
-    });
-
-    return filteredEntities;
+    return new EntitiesWrapper(this.entities);
   }
 }
 
