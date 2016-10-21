@@ -1,5 +1,6 @@
 import expect from 'expect';
 import entityGetter from './index';
+import EntitiesWrapper from '../EntitiesWrapper';
 
 describe('EntityGetter', () => {
   const job1 = {
@@ -40,42 +41,13 @@ describe('EntityGetter', () => {
     const getter = entityGetter(entitySelector)(state);
     const entities = getter.get('jobs');
 
+    it('returns an EntitiesWrapper object', () => {
+      expect(entities).toBeAn(EntitiesWrapper);
+    });
+
     describe('#entities', () => {
       it('returns an array of entities in state', () => {
         expect(entities.entities).toEqual([job1, job2, job3]);
-      });
-    });
-
-    describe('findBy', () => {
-      it('finds the entity when comparing 1 attribute', () => {
-        expect(entities.findBy({ id: 1 })).toEqual(job1);
-      });
-
-      it('finds the entity when comparing multiple attributes', () => {
-        expect(entities.findBy({ title: 'My job', foo: 'bar' })).toEqual(job1);
-        expect(entities.findBy({ title: 'My job', number: 11 })).toEqual(job2);
-      });
-
-      it('returns undefined when no entities match', () => {
-        expect(entities.findBy({ something: 'wrong' })).toNotExist();
-        expect(entities.findBy({ title: 'My job', foo: 'baz' })).toNotExist();
-      });
-    });
-
-    describe('#where', () => {
-      it('filters state when comparing 1 attribute', () => {
-        expect(entities.where({ id: 1 })).toEqual([job1]);
-      });
-
-      it('filters state when comparing multiple attributes', () => {
-        expect(entities.where({ title: 'My job', foo: 'bar' })).toEqual([job1, job2]);
-        expect(entities.where({ title: 'My job', number: '11' })).toEqual([job2]);
-        expect(entities.entities).toEqual([job1, job2, job3]);
-      });
-
-      it('returns an empty array when no entities match', () => {
-        expect(entities.where({ something: 'wrong' })).toEqual([]);
-        expect(entities.where({ title: 'My job', foo: 'baz' })).toEqual([]);
       });
     });
   });
@@ -99,42 +71,13 @@ describe('EntityGetter', () => {
     const getter = entityGetter(entitySelector)(state);
     const entities = getter.get('jobs');
 
+    it('returns an EntitiesWrapper object', () => {
+      expect(entities).toBeAn(EntitiesWrapper);
+    });
+
     describe('#entities', () => {
       it('returns an array of entities in state', () => {
         expect(entities.entities).toEqual([job1, job2, job3]);
-      });
-    });
-
-    describe('findBy', () => {
-      it('finds the entity when comparing 1 attribute', () => {
-        expect(entities.findBy({ id: 1 })).toEqual(job1);
-      });
-
-      it('finds the entity when comparing multiple attributes', () => {
-        expect(entities.findBy({ title: 'My job', foo: 'bar' })).toEqual(job1);
-        expect(entities.findBy({ title: 'My job', number: 11 })).toEqual(job2);
-      });
-
-      it('returns undefined when no entities match', () => {
-        expect(entities.findBy({ something: 'wrong' })).toNotExist();
-        expect(entities.findBy({ title: 'My job', foo: 'baz' })).toNotExist();
-      });
-    });
-
-    describe('#where', () => {
-      it('filters state when comparing 1 attribute', () => {
-        expect(entities.where({ id: 1 })).toEqual([job1]);
-      });
-
-      it('filters state when comparing multiple attributes', () => {
-        expect(entities.where({ title: 'My job', foo: 'bar' })).toEqual([job1, job2]);
-        expect(entities.where({ title: 'My job', number: '11' })).toEqual([job2]);
-        expect(entities.entities).toEqual([job1, job2, job3]);
-      });
-
-      it('returns an empty array when no entities match', () => {
-        expect(entities.where({ something: 'wrong' })).toEqual([]);
-        expect(entities.where({ title: 'My job', foo: 'baz' })).toEqual([]);
       });
     });
   });
