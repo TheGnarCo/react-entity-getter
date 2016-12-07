@@ -85,9 +85,16 @@ const users = stateEntityGetter(state).get('users').entities;
 
 ### findBy
 
+```
+findBy<A, B, C>(filters:A, options:B?) -> C?
+```
+
 * Returns the first entity matching the attributes passed to the function.
 
-Example:
+#### Options
+* ignoreCase: matches the attribute value of an entity regardless of the case
+
+#### Examples:
 
 ```js
 const user = stateEntityGetter(state).get('users').findBy({ isCurrentUser: true }); // returns a single User entity
@@ -97,11 +104,23 @@ const post = stateEntityGetter(state).get('posts').findBy({
 }); // returns a single Post entity
 ```
 
+```js
+const users = stateEntityGetter(state).get('users');
+const user = users.findBy({ first_name: 'mike' }, { ignoreCase: true }); // returns a single User entity
+```
+
 ### where
 
-* Returns an array of all entities matching the attributes passed to the function
+```
+where<A,B, C>(filters:A, options:B?) -> [C]
+```
 
-Example:
+* Returns an array of all entities matching the attributes passed to the function.
+
+#### Options
+* ignoreCase: matches the attribute value of an entity regardless of the case
+
+#### Examples:
 
 ```js
 const entities = stateEntityGetter(state);
@@ -111,4 +130,5 @@ const comments = entities.get('comments').where({
   post_id: post.id,
   user_id: user.id,
 }); // returns an array of comments related to the post and user
+const billUsers = entities.get('users').where({ first_name: 'bill' }, { ignoreCase: true });
 ```
