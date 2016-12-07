@@ -5,20 +5,26 @@ class EntitiesWrapper {
     this.entities = entities;
   }
 
-  findBy = (options = {}) => {
-    return first(this._filterEntities(options));
+  findBy = (filters = {}, options = {}) => {
+    return first(this._filterEntities(filters, options));
   }
 
-  where = (options = {}) => {
-    return this._filterEntities(options);
+  where = (filters = {}, options = {}) => {
+    return this._filterEntities(filters, options);
   }
 
-  _filterEntities = (options) => {
+  _filterEntities = (filters, options) => {
     let filteredEntities = clone(this.entities);
+    const { ignoreCase } = options;
 
-    each(options, (attributeValue, attributeName) => {
+    each(filters, (attributeValue, attributeName) => {
       filteredEntities = filter(filteredEntities, (entity) => {
         const attribute = entity[attributeName];
+
+        if (ignoreCase) {
+          return String(attribute).toLowerCase() === String(attributeValue).toLowerCase();
+        }
+
         return String(attribute) === String(attributeValue);
       });
     });

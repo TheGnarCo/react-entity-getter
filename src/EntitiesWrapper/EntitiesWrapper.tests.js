@@ -42,6 +42,16 @@ describe('EntitiesWrapper', () => {
       expect(entitiesWrapper.findBy({ something: 'wrong' })).toNotExist();
       expect(entitiesWrapper.findBy({ title: 'My job', foo: 'baz' })).toNotExist();
     });
+
+    describe('ignore case option', () => {
+      it('does not ignore case by default', () => {
+        expect(entitiesWrapper.findBy({ title: 'my job' })).toNotExist();
+      });
+
+      it('ignore cases when specified', () => {
+        expect(entitiesWrapper.findBy({ title: 'my job' }, { ignoreCase: true })).toEqual(job1);
+      });
+    });
   });
 
   describe('#where', () => {
@@ -58,6 +68,16 @@ describe('EntitiesWrapper', () => {
     it('returns an empty array when no entities match', () => {
       expect(entitiesWrapper.where({ something: 'wrong' })).toEqual([]);
       expect(entitiesWrapper.where({ title: 'My job', foo: 'baz' })).toEqual([]);
+    });
+
+    describe('ignore case option', () => {
+      it('does not ignore case by default', () => {
+        expect(entitiesWrapper.where({ title: 'my job' })).toEqual([]);
+      });
+
+      it('ignore cases when specified', () => {
+        expect(entitiesWrapper.where({ title: 'my job' }, { ignoreCase: true })).toEqual([job1, job2]);
+      });
     });
   });
 });
