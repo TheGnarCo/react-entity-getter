@@ -1,6 +1,6 @@
 {
   "name": "react-entity-getter",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A helper class to query redux state for entities",
   "main": "lib/index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "author": "The Gnar Company, Inc. <hi@thegnar.co>",
   "license": "MIT",
   "homepage": "https://github.com/TheGnarCo/react-entity-getter",
-  "devDependencies": {
+  "dependencies": {
     "babel-cli": "^6.14.0",
     "babel-core": "^6.4.5",
     "babel-eslint": "6.0.4",
@@ -40,12 +40,10 @@
     "eslint-plugin-import": "1.16.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "6.3.0",
+    "expect": "^1.14.0",
+    "lodash": "4.16.4",
     "mocha": "^3.0.2",
     "rimraf": "^2.5.1",
     "webpack": "^1.12.12"
-  },
-  "dependencies": {
-    "expect": "^1.14.0",
-    "lodash": "4.16.4"
   }
 }
