@@ -1,8 +1,13 @@
+const path = require('path');
+const webpack = require('webpack');
+
 module.exports = {
-  entry: './src/entityGetter.js',
+  context: path.resolve(__dirname, './src'),
+  entry: './index.js',
   output: {
-    path: `${__dirname}/build`,
-    filename: 'entityGetter.js'
+    path: path.resolve(__dirname, './build'),
+    filename: 'index.js',
+    libraryTarget: 'umd',
   },
   module: {
     loaders: [
@@ -10,10 +15,10 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
-        query: {
-          presets: ['es2015']
-        }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({ minimize: true })
+  ],
 };
