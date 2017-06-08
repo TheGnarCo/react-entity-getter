@@ -1,6 +1,6 @@
 {
   "name": "react-entity-getter",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A helper class to query redux state for entities",
   "main": "build/index.js",
   "scripts": {
